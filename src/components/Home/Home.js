@@ -36,7 +36,7 @@ class Home extends Component {
                         <div key={movie.id}>
                             <p>{movie.title}</p>
                             <button><img src={movie.poster} alt="movie poster" onClick={() => this.handleClick(movie.id)} /></button>
-                            {/* <p>{movie.description}</p>  */}
+                            <p>{movie.description}</p> 
                         </div>
                         )
                     })}
