@@ -3,10 +3,16 @@ import { connect } from 'react-redux'
 
 
 class Details extends Component {
+    handleBackClick = () => {
+        console.log('in handle click back')
+        this.props.history.push('/');
+    }
+
     render() {
         return (
-            <div className='Details'>
-                <h1>Test</h1>
+            <div className='App'>
+                <h1>{this.props.reduxState.details.title}</h1>
+                <img src={this.props.reduxState.details.poster} alt='movie poster' />
             </div>
         )
     }

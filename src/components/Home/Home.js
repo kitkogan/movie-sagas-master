@@ -21,7 +21,7 @@ class Home extends Component {
     handleClick = (id) => {
         console.log('in handleClick');
         this.props.dispatch({
-            type: 'GET_DEETS',
+            type: 'GET_DETAILS',
             payload: id
         });
         console.log('get deets dispatch OK');

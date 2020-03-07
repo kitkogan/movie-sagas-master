@@ -11,9 +11,23 @@ router.get('/', (req, res) => {
         res.send(result.rows);
     })
     .catch(err => {
-        console.log("An error was encourntered while getting your movies", err)
+        console.log('An error was encourntered while getting your movies', err)
         res.sendStatus(500);
     })
+})
+
+//router sends GET req to DB for movie details by id
+router.get('/details/:id', (req, res) => {
+    let deetsById = req.params.id 
+    let queryText = 'SELECT * FROM "movies" WHERE "id" = $1;';
+    pool.query(queryText, [deetsById])
+        .then(result => {
+            res.send(result.rows[0]);
+        })
+        .catch(err => {
+            console.log('An error was encountered while getting your movie details', err)
+            res.sendStatus(500);
+        })
 })
 
 module.exports = router;
