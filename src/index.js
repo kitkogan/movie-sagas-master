@@ -11,9 +11,25 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import Axios from 'axios';
+
+//generator function
+function* getMovies() {
+    try {
+       let response = yield Axios.get('/movies')
+       console.log('in GET movies saga: ', response.data)
+       //All actions of 'SET_MOVIES' is sent from here to reducer
+        yield put({
+            type: 'SET_MOVIES',
+            payload: response.data
+        }) 
+    } catch (err) {
+       console.log('error in saga getmovies', err) 
+    }
+}
+
 // Create the rootSaga generator function
 function* rootSaga() {
-
+    yield takeEvery('GET_MOVIES', getMovies);
 }
 
 // Create sagaMiddleware

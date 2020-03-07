@@ -14,7 +14,7 @@ if (process.env.DATABASE_URL) {
     let params = url.parse(process.env.DATABASE_URL);
     let auth = params.auth.split(':');
 
-    config = {
+     config = {
         user: auth[0],
         password: auth[1],
         host: params.hostname,
@@ -39,4 +39,11 @@ if (process.env.DATABASE_URL) {
 }
 
 
-module.exports = new pg.Pool(config);
+const pool = new pg.Pool(config);
+pool.on('connect', () => {
+console.log('connected to postgres');
+});
+pool.on('error', (err) => {
+console.log('error connecting to postgres', err);
+});
+module.exports = pool;
