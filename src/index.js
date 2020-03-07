@@ -32,7 +32,7 @@ function* getMovies() {
 
 function* getDetails(action) {
    try {
-       let response = yield Axios.get(`/movies/details/${action.payload}`)
+       let response = yield Axios.get(`/movies/details/${action.payload}`);
        console.log('in saga getDetails', response.data);
        yield put({
            type: 'SET_DETAILS',

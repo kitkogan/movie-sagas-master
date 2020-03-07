@@ -8,11 +8,16 @@ class Details extends Component {
         this.props.history.push('/');
     }
 
+    handleEditClick = () => {
+        this.props.history.push('/edit');
+    }
+
     render() {
         return (
             <div className='App'>
                 <h1>{this.props.reduxState.details.title}</h1>
                 <img src={this.props.reduxState.details.poster} alt='movie poster' />
+                <p>{this.props.reduxState.details.description}</p>
             </div>
         )
     }
