@@ -17,16 +17,16 @@ class Home extends Component {
        });
        console.log('get movies dispatch')   
     }
-    //Func call to get movie details
-    // handleClick = (id) => {
-    //     console.log('in handleClick');
-    //     this.props.dispatch({
-    //         type: 'GET_DEETS',
-    //         payload: id
-    //     });
-    //     console.log('get deets dispatch OK');
-    //     this.props.history.push('/details');   
-    // }
+    // Func call to get movie details
+    handleClick = (id) => {
+        console.log('in handleClick');
+        this.props.dispatch({
+            type: 'GET_DEETS',
+            payload: id
+        });
+        console.log('get deets dispatch OK');
+        this.props.history.push('/details');   
+    }
 
     render() {
         return (
@@ -35,8 +35,8 @@ class Home extends Component {
                     return (
                         <div key={movie.id}>
                             <p>{movie.title}</p>
-                            <img src={movie.poster} alt="movie poster" onClick={() => this.handleClick(movie.id)} />
-                            <p>{movie.description}</p> 
+                            <button><img src={movie.poster} alt="movie poster" onClick={() => this.handleClick(movie.id)} /></button>
+                            {/* <p>{movie.description}</p>  */}
                         </div>
                         )
                     })}
