@@ -1,42 +1,58 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import {connect} from 'react-redux';
+// import './Details.css';
 
 
 class Details extends Component {
-    handleBackClick = () => {
-        console.log('in handle click back')
-        this.props.history.push('/');
+    componentDidMount = ()=>{
+        this.getInfo();
     }
 
-    handleEditClick = () => {
-        this.props.history.push('/edit');
-    }
-    getGenres = () => {
+    getInfo = ()=>{
+        // saga call to server call to get details for only this movie
+        this.props.dispatch({ type: 'GET_ONE_MOVIE', payload: this.props.match.params.id })
+        //saga call to server call to get generas that go with this movie
         this.props.dispatch({ type: 'GET_GENRES', payload: this.props.match.params.id })
     }
-    
 
-    render() {
-        return (
-            <div className='App'>
-                <h1>{this.props.reduxState.details.title}</h1>
-                <button onClick={this.handleBackClick}>BACK TO LIST</button>
-                <button onClick={()=>{this.handleEditClick(this.props.match.params.id)}}>EDIT</button>
-                <img src={this.props.reduxState.details.poster} alt='movie poster' />
-                <p>{this.props.reduxState.details.description}</p>
-                
-                <h4>Genres</h4>
+    goBack = ()=>{
+        this.props.history.goBack();
+    }
+
+    goToEdit = (id)=>{
+        this.props.history.push(`/edit/${id}`)
+    }
+
+  // Renders the entire app on the DOM
+  render() {
+    let movie = this.props.reduxState.oneMovie;
+    return (
+      
+      <div className="Details">
+        
+        <button onClick={this.goBack}>BACK TO LIST</button>
+        <button onClick={()=>{this.goToEdit(this.props.match.params.id)}}>EDIT</button>
+        
+        <div className="movieDetailsDiv">
+            <h3>{movie.title}</h3>
+            <p>{movie.description}</p>
+        </div>
+    
+        <div className="genres">
+            <h4>Genres</h4>
             <ul>
                 {this.props.reduxState.genres.map((genre, i)=>{
                 return <li key={i}>{genre.name}</li>    
                 })}
             </ul>
-            </div>
-        )
-    }
+        </div>
+      </div>
+      
+    );
+  }
 }
-
 const putReduxStateOnProps = (reduxState) => ({
-  reduxState
+    reduxState
 })
+
 export default connect(putReduxStateOnProps)(Details);
