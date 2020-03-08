@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Martel|Open+Sans&display=swap');
+
+.movieContainer{
+    font-family: 'Martel';
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 30px;
+}
+
+.header {
+    background: rgb(148, 68, 148);
+    color: white;
+    padding: 10px;
+    font-family: 'Martel', sans-serif;
+    text-shadow: 4px 4px 6px #000000;
+    animation: pulse 5s infinite;
+    font-size: xx-large;   
+}
+
+@keyframes pulse {
+    0% {
+      background-color:  rgb(122, 96, 214);
+    }
+    50% {
+        background-color: rgb(216, 112, 202);
+    }
+    75% {
+        background-color: rgb(173, 113, 230);
+    }
+    100% {
+        background-color: rgb(122, 96, 214);
+    }
+  }
+
+h2 {
+    font-size: 25px;
+}
+
+h4 {
+    font-size: 30;
+}
+
+img {
+    box-shadow: 5px 10px 8px #888888;
+    transition: all .75s ease-in-out;
+}
+
+img:hover { 
+    transform: scale(1.1); 
+    }

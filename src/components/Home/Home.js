@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
 import MovieItem from './../MovieItem/MovieItem'
 import {connect} from 'react-redux';
-// import './Home.css';
+import './Home.css';
 
-
+//What will fire on page load
+//getMovies function
 class Home extends Component {
     componentDidMount = () => {
         this.getMovies();
     }
 
-    getMovies = ()=>{
+    //getMovied function
+    getMovies = () => {
         //sagas call to get all movies from server/db
         this.props.dispatch({ type: 'GET_MOVIES'});
     }
 
-    goToDetails = (id)=>{
+    //function brings user to detaill page when poster is clicked
+    toDetailsPage = (id) => {
         this.props.history.push(`/details/${id}`)
     }
 
-  // Renders the entire app on the DOM
+  // Renders the app on the DOM
   render() {
     return (
-      
       <div>
         <div className="header">
             <h1>Movies</h1>
@@ -32,13 +34,15 @@ class Home extends Component {
         {this.props.reduxState.movies.map((movie)=>{
             return <MovieItem key={movie.id} 
                               movie={movie}
-                              goToDetails={this.goToDetails}/>
+                              toDetailsPage={this.toDetailsPage}/>
         })}
         </div>
       </div>
     );
   }
 }
+
+//using redux to share state with props
 const putReduxStateOnProps = (reduxState) => ({
     reduxState
 })

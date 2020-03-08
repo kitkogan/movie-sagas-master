@@ -2,19 +2,17 @@ import React, { Component } from 'react';
 
 
 class MovieItem extends Component {
-
-  // Renders the entire app on the DOM
+  //renders the app on the DOM
   render() {
       let movie = this.props.movie;
     return (
-    //   each movie item details to display 
+    //each movie item details displayed on DOM 
       <div className="MovieItem">
-        <div className="movieImage" onClick={()=>{this.props.goToDetails(movie.id)}}>
+        <div className="moviePoster" onClick={()=>{this.props.toDetailsPage(movie.id)}}>
             <img src={movie.poster} alt={movie.title}></img>
         </div>  
         <h2>{movie.title}</h2>
-      </div>
-      
+      </div> 
     );
   }
 }

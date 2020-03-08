@@ -3,10 +3,10 @@ const router = express.Router();
 const pool = require('../modules/pool');
 
 router.get('/', (req, res)=>{
-    //DB call to get title and poster from "movies" table
+    //call to get title and poster from DB "movies" table to display on home page
     let queryText = `SELECT "id", "title", "poster" FROM "movies";`;
     pool.query(queryText).then((result)=>{
-        //sends back the movie results in an object
+        //sends back the movie results packaged in an object
         res.send(result.rows);
     }).catch((error)=>{
         console.log('error getting movies', error);
@@ -15,10 +15,10 @@ router.get('/', (req, res)=>{
 })//end GET route
 
 router.get('/details/:id', (req, res)=>{
-    //DB call to get info for specific movie for details page
+    //call to get info from DB for movie that was selected
     let queryText = `SELECT "id", "title", "description" FROM "movies" WHERE "id" = $1;`;
     pool.query(queryText, [req.params.id]).then((result)=>{
-        //sends back the movie results in an object
+        //sends back the movie results packaged  in an object
         res.send(result.rows[0]);
     }).catch((error)=>{
         console.log('error getting movies', error);
@@ -27,7 +27,7 @@ router.get('/details/:id', (req, res)=>{
 })
 
 router.get('/genres/:id', (req, res)=>{
-    // DB call to get genres that go with specific movie for details page
+    //call to get genres from DB for movie that was selected
     let queryText = `SELECT "genres"."name"
     FROM "genres"
     JOIN "movie_genres"
@@ -36,7 +36,7 @@ router.get('/genres/:id', (req, res)=>{
         ON "movie_genres"."movie_id" = "movies"."id"
     WHERE "movies"."id" = $1;`;
     pool.query(queryText, [req.params.id]).then((result)=>{
-        //sends back the genre results in an object
+        //sends back the genre results packaged in an object
         res.send(result.rows);
     }).catch((error)=>{
         console.log('error getting movies', error);
@@ -44,21 +44,22 @@ router.get('/genres/:id', (req, res)=>{
     })
 })
 
-// router.post('/', (req, res)=>{
-//     //DB call to update title and description for specific movie in edit page
-//     let updates = req.body;
-//     let queryText = `UPDATE "movies" SET "title" = $1, "description" = $2 WHERE "id" = $3`;
-//     let queryValues = [
-//         updates.newTitle,
-//         updates.newDescription,
-//         updates.movieId
-//     ];
-//     pool.query(queryText, queryValues).then((results)=>{
-//         res.sendStatus(200)
-//     }).catch((error)=>{
-//         console.log('error updating movie', error);
-//         res.sendStatus(500);
-//     })
-// })
+router.post('/', (req, res)=>{
+    //call to update title and description from DB for movie selected to edit
+    let updates = req.body;
+    let queryText = `UPDATE "movies" SET "title" = $1, "description" = $2 WHERE "id" = $3`;
+    let queryValues = [
+        updates.newTitle,
+        updates.newDescription,
+        updates.movieId
+    ];
+    pool.query(queryText, queryValues).then((results)=>{
+        console.log(results)
+        res.sendStatus(200)
+    }).catch((error)=>{
+        console.log('error updating movie', error);
+        res.sendStatus(500);
+    })
+})
 
 module.exports = router;

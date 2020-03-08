@@ -1,37 +1,38 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-// import './Details.css';
+import './Details.css';
 
 
 class Details extends Component {
     componentDidMount = ()=>{
-        this.getInfo();
+        this.getDetails();
     }
 
-    getInfo = ()=>{
-        // saga call to server call to get details for only this movie
+    //get details for selected movie
+    getDetails = ()=>{
+        //saga call to get details for the selected movie
         this.props.dispatch({ type: 'GET_ONE_MOVIE', payload: this.props.match.params.id })
-        //saga call to server call to get generas that go with this movie
+        //saga call to get generes for the selected movie
         this.props.dispatch({ type: 'GET_GENRES', payload: this.props.match.params.id })
     }
 
-    goBack = ()=>{
+    //go back to home page when back button is clicked
+    buttonClickBack = ()=>{
         this.props.history.goBack();
     }
 
-    goToEdit = (id)=>{
+    //go to edit the selected movie fields
+    buttonClickEdit = (id)=>{
         this.props.history.push(`/edit/${id}`)
     }
 
-  // Renders the entire app on the DOM
+  //renders the app on the DOM
   render() {
     let movie = this.props.reduxState.oneMovie;
     return (
-      
       <div className="Details">
-        
-        <button onClick={this.goBack}>BACK TO LIST</button>
-        <button onClick={()=>{this.goToEdit(this.props.match.params.id)}}>EDIT</button>
+        <button onClick={this.buttonClickBack}>BACK TO LIST</button>
+        <button onClick={()=>{this.buttonClickEdit(this.props.match.params.id)}}>EDIT</button>
         
         <div className="movieDetailsDiv">
             <h3>{movie.title}</h3>
@@ -39,18 +40,19 @@ class Details extends Component {
         </div>
     
         <div className="genres">
-            <h4>Genres</h4>
+            <h4>Genres:</h4>
             <ul>
                 {this.props.reduxState.genres.map((genre, i)=>{
                 return <li key={i}>{genre.name}</li>    
                 })}
             </ul>
         </div>
-      </div>
-      
+      </div> 
     );
   }
 }
+
+//redux shares state with props
 const putReduxStateOnProps = (reduxState) => ({
     reduxState
 })
