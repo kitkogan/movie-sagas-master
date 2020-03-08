@@ -18,7 +18,7 @@ import Axios from 'axios';
 //it waits for the response so it can set state for movies
 function* getMovies() {
     try {
-       let response = yield Axios.get('/movies')
+       let response = yield Axios.get(`/movies`);
        console.log('in GET movies saga: ', response.data)
        //All actions of 'SET_MOVIES' is sent from here to reducer
         yield put({
