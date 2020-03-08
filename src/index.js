@@ -38,12 +38,22 @@ function* getDetails(action) {
            type: 'SET_DETAILS',
            payload: response.data
        })
+   } catch (error) {
+       console.log('error in saga getdetails', error)
+   }
+}
+
+function* getGenres(action) {
+   try {
+        let response = yield Axios.get(`/movies/genres/${action.payload}`);
        yield put({
            type: 'SET_GENRES',
            payload: response.data
        })
    } catch (error) {
-       console.log('error in saga getdetails')
+       console.log('error in saga getgenres', error);
+       
+       
    }
 }
 
@@ -51,6 +61,7 @@ function* getDetails(action) {
 function* rootSaga() {
     yield takeEvery('GET_MOVIES', getMovies);
     yield takeEvery('GET_DETAILS', getDetails);
+    yield takeEvery('GET_GENRES', getGenres);
 }
 
 // Create sagaMiddleware
