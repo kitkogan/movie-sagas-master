@@ -1,51 +1,46 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import MovieItem from './../MovieItem/MovieItem'
+import {connect} from 'react-redux';
+// import './Home.css';
 
-//App rendered to DOM
+
 class Home extends Component {
-    //What happens on page load
-    componentDidMount() {
-        //Get function that fires on pageload
-        //Gets all movies and displays on DOM
+    componentDidMount = () => {
         this.getMovies();
     }
 
-    //Func call to get movies
-    getMovies = () => {
-       this.props.dispatch({
-           type: 'GET_MOVIES'    
-       });
-       console.log('get movies dispatch')   
-    }
-    // Func call to get movie details
-    handleClick = (id) => {
-        console.log('in handleClick');
-        this.props.dispatch({
-            type: 'GET_DETAILS',
-            payload: id
-        });
-        console.log('get deets dispatch OK');
-        this.props.history.push('/details');   
+    getMovies = ()=>{
+        //sagas call to get all movies from server/db
+        this.props.dispatch({ type: 'GET_MOVIES'});
     }
 
-    render() {
-        return (
-            <div className="App">
-                {this.props.reduxState.movies.map(movie => {
-                    return (
-                        <div key={movie.id}>
-                            <p>{movie.title}</p>
-                            <button><img src={movie.poster} alt="movie poster" onClick={() => this.handleClick(movie.id)} /></button>
-                            <p>{movie.description}</p> 
-                        </div>
-                        )
-                    })}
-            </div>
-        )
+    goToDetails = (id)=>{
+        this.props.history.push(`/details/${id}`)
     }
+
+  // Renders the entire app on the DOM
+  render() {
+    return (
+      
+      <div>
+        <div className="header">
+            <h1>Movies</h1>
+            <h2>click on a movie to view details</h2>
+        </div>
+        <div className="movieContainer">
+            {/* map through each movie item from redux store to display on DOM */}
+        {this.props.reduxState.movies.map((movie)=>{
+            return <MovieItem key={movie.id} 
+                              movie={movie}
+                              goToDetails={this.goToDetails}/>
+        })}
+        </div>
+      </div>
+    );
+  }
 }
-
 const putReduxStateOnProps = (reduxState) => ({
-  reduxState
+    reduxState
 })
+
 export default connect(putReduxStateOnProps)(Home);
