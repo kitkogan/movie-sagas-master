@@ -10,6 +10,10 @@
     font-size: larger;
     box-shadow: 5px 10px 8px #888888;
     background-color: rgb(248, 187, 244);
+    animation-name: fadeInRight;
+    animation-duration: 0.5s;
+    transition-timing-function: ease-in;
+    animation-fill-mode: both;
 }
 
 button {
@@ -104,4 +108,20 @@ ul {
 
 body {
     background-color: white;
+    
+       
 }
+
+@keyframes fadeInRight {
+    0% {
+      opacity: 0;
+      transform: translate3d(100%, 0, 0);
+    }
+  
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  
+  

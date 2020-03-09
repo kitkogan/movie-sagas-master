@@ -28,6 +28,7 @@ For this weekend challenge students were asked to create a movie application usi
 
 - [x] Invest some time in styling it up!
     - [x] Research grids for you movie posters on the Move List page
+    - [x] page transition animations
 - [x] Commit your code frequently! You should have at 15+ commits on a project of this size. Use branches to help break down your features.
 - [x] Comment your code.
 - [x] Update this README to include a description of the project in your own words.
