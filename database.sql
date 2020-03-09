@@ -49,9 +49,6 @@ VALUES (1, 11),
 
 SELECT "id" as "movie_id" FROM "movie_genres";
 
-SELECT * FROM "movies" JOIN "movie_genres" ON "movies"."id"="movie_genres"."movie_id"
-JOIN "genres" ON "genres"."id"="movie_genres"."genre_id";
-
 
 --------[ DATA! ]---------
 
