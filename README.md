@@ -4,6 +4,14 @@
 
 For this weekend challenge students were asked to create a movie application using information supplied by a database. This includes a poster and title for each movies as well as the description and associated movie genres. Users can edit the movie title and descriptions.
 
+## Technologies Used
+
+-React
+-Redux
+-Sagas
+-Axios
+-PostgreSQL
+
 ## Database Setup
 
 1. Create a database named `saga_movies_weekend`
