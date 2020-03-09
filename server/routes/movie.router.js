@@ -4,7 +4,7 @@ const pool = require('../modules/pool');
 
 router.get('/', (req, res)=>{
     //call to get title and poster from DB "movies" table to display on home page
-    let queryText = `SELECT "id", "title", "poster" FROM "movies";`;
+    let queryText = `SELECT * FROM "movies";`;
     pool.query(queryText).then((result)=>{
         //sends back the movie results packaged in an object
         res.send(result.rows);
